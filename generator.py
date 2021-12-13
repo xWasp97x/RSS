@@ -1,6 +1,7 @@
 from rfeed import *
 import wget
 from time import sleep
+import os
 
 output_file = './output/torrent_rss.xml'
 
@@ -9,7 +10,6 @@ with open('./config/magnets_file_link') as file:
 
 
 def generate_rss():
-
     def get_item(magnet: str):
         return Item(title=get_name(magnet),
                     link=magnet,
@@ -20,6 +20,9 @@ def generate_rss():
         start = magnet.index('&dn')
         end = magnet.index('&tr')
         return magnet[start + 4:end].replace('%20', ' ')
+
+    if os.path.exists('./magnets.txt'):
+        os.remove('./magnets.txt')
 
     wget.download(input_file, './magnets.txt')
 
@@ -34,11 +37,9 @@ def generate_rss():
 
     rss = feed.rss()
 
-    print(len(feed.items))
 
     with open(output_file, 'w') as file:
         file.write(rss)
-
 
 
 if __name__ == '__main__':
