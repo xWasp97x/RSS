@@ -40,3 +40,4 @@ def generate_rss():
 if __name__ == '__main__':
     while True:
         generate_rss()
+        sleep(60 * 5)
