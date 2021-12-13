@@ -4,10 +4,11 @@ from time import sleep
 
 output_file = './output/torrent_rss.xml'
 
+with open('./config/magnets_file_link') as file:
+    input_file = file.read().strip()
+
 
 def generate_rss():
-    with open('./config/magnets_file_link') as file:
-        input_file = file.read().strip()
 
     def get_item(magnet: str):
         return Item(title=get_name(magnet),
@@ -33,8 +34,11 @@ def generate_rss():
 
     rss = feed.rss()
 
+    print(len(feed.items))
+
     with open(output_file, 'w') as file:
         file.write(rss)
+
 
 
 if __name__ == '__main__':
