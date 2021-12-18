@@ -3,7 +3,7 @@ import wget
 from time import sleep
 import os
 
-PORT = 6969
+PORT = 8080
 
 output_file = './output/torrent_rss.xml'
 
