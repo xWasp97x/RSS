@@ -3,6 +3,8 @@ import wget
 from time import sleep
 import os
 
+PORT = 6969
+
 output_file = './output/torrent_rss.xml'
 
 with open('./config/magnets_file_link') as file:
@@ -37,12 +39,14 @@ def generate_rss():
 
     rss = feed.rss()
 
-
     with open(output_file, 'w') as file:
         file.write(rss)
 
 
 if __name__ == '__main__':
+
+    os.system(f'cd ./output; python3 -m http.server {PORT}')
+
     while True:
         generate_rss()
         sleep(60 * 5)
