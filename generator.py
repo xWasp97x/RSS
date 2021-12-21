@@ -1,8 +1,8 @@
 from rfeed import *
-import wget
 from time import sleep
 import os
 from loguru import logger
+from threading import Thread
 
 PORT = 8080
 
@@ -57,7 +57,7 @@ if __name__ == '__main__':
 
     logger.info('Launching http server')
 
-    os.system(f'cd /RSS/output/; python3 -m http.server {PORT}')
+    Thread(target=os.system, args=(f'cd /RSS/output/; python3 -m http.server {PORT}',)).start()
 
     while True:
         logger.info('Generating new rss...')
