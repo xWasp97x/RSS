@@ -47,4 +47,4 @@ if __name__ == '__main__':
         logger.info('Generating new rss...')
         generate_rss()
         logger.success('New rss generated.')
-        sleep(60 * 5)
+        sleep(60)
