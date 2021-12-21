@@ -10,7 +10,20 @@ output_file = '/RSS/output/torrent_rss.xml'
 
 input_file = '/RSS/input/magnets.txt'
 
+log_format = '<light-black>{time:YYYY-MM-DD HH:mm:ss.SSS}</light-black>' \
+             ' <level>{name}.{function}@{line} | {level}: {message}</level>'
 
+logs_path = '/RSS/logs'
+
+
+def init_logger():
+    logger.remove()
+    logger.add(sys.stdout, format=log_format, colorize=True)
+    logger.add(os.path.join(logs_path, '{time:YYYY-MM-DD}.log'), format=log_format,
+               colorize=False, compression='zip', rotation='00:00')
+
+
+@logger.catch
 def generate_rss():
     def get_item(magnet: str):
         return Item(title=get_name(magnet),
@@ -40,6 +53,7 @@ def generate_rss():
 
 
 if __name__ == '__main__':
+    init_logger()
 
     os.system(f'cd /RSS/output/; python3 -m http.server {PORT}')
 
