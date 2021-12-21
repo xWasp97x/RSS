@@ -5,10 +5,9 @@ import os
 
 PORT = 8080
 
-output_file = './output/torrent_rss.xml'
+output_file = '/RSS/output/torrent_rss.xml'
 
-with open('./config/magnets_file_link') as file:
-    input_file = file.read().strip()
+input_file = '/RSS/input/magnets.txt'
 
 
 def generate_rss():
@@ -23,12 +22,7 @@ def generate_rss():
         end = magnet.index('&tr')
         return magnet[start + 4:end].replace('%20', ' ')
 
-    if os.path.exists('./magnets.txt'):
-        os.remove('./magnets.txt')
-
-    wget.download(input_file, './magnets.txt')
-
-    with open('./magnets.txt') as file:
+    with open(input_file) as file:
         items = [get_item(magnet) for magnet in file.readlines()]
 
     feed = Feed(title='Torrents feed',
@@ -45,7 +39,7 @@ def generate_rss():
 
 if __name__ == '__main__':
 
-    os.system(f'cd ./output; python3 -m http.server {PORT}')
+    os.system(f'cd /RSS/output/; python3 -m http.server {PORT}')
 
     while True:
         generate_rss()
