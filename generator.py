@@ -55,6 +55,8 @@ def generate_rss():
 if __name__ == '__main__':
     init_logger()
 
+    logger.info('Launching http server')
+
     os.system(f'cd /RSS/output/; python3 -m http.server {PORT}')
 
     while True:
