@@ -6,7 +6,7 @@ from threading import Thread
 
 PORT = 8080
 
-output_file = '/RSS/output/torrent_rss.xml'
+output_file = '/RSS/output/rss.xml'
 
 input_file = '/RSS/input/magnets.txt'
 
